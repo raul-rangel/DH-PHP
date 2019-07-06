@@ -6,8 +6,8 @@
   $cvv = $_REQUEST["cvv"];
   $nomeCurso = $_REQUEST["nomeCurso"];
   $precoCurso = $_REQUEST["precoCurso"];
-?>
-<?php
+
+  $errors = [];
 
   function validaNome($nomeCompleto){
     return strlen($nomeCompleto) > 0 && strlen($nomeCompleto) <= 15;
@@ -27,21 +27,34 @@
     return strlen($cvv) === 3;
   };
 
-  function validarData($validade){
+  function validaData($validade){
     $dataAtual = date('Y-m');
     return ($validade > $dataAtual);
   }
   
   function validarCompra($nomeCompleto, $cpf, $numeroCartao, $cvv, $validade){
-    $errors = [];
+    global $errors;
 
-    
-  }
-  echo validaNome($nomeCompleto);
-  echo validaCpf($cpf);
-  echo validaCartao($numeroCartao);
-  echo validaCvv($cvv);
-  exit;
+    if(!validaNome($nomeCompleto)){
+      array_push($errors, 'Nome invalido completo é obrigatório');
+    };
+
+    if(!validaCpf($cpf)){
+      array_push($errors, 'CPF inválido');
+    };
+
+    if(!validaCartao($numeroCartao)){
+      array_push($errors, 'Numero do cartão inválido');
+    };
+
+    if(!validaCvv($cvv)){
+      array_push($errors, 'CVV precisa ter 3 digitos');
+    };
+    if(!validaData($validade)){
+      array_push($errors, 'Data precisa ser maior que mês atual');
+    };
+  };
+  validarCompra($nomeCompleto, $cpf, $numeroCartao, $cvv, $validade)
 ?>
 
 <!DOCTYPE html>
@@ -56,19 +69,41 @@
   <body>
     <div class="container">
       <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-primary">
-          <div class="panel-heading">Compra Realizada com sucesso!</div>
-          <div class="panel-body">
-            <ul class="list-group">
-              <li class="list-group-item"><strong>Nome Curso:</strong><?php echo $nomeCurso; ?></li>
-              <li class="list-group-item"><strong>Preço: R$</strong><?php echo $precoCurso; ?></li>
-              <li class="list-group-item"><strong>Nome Completo:</strong><?php echo $nomeCompleto; ?></li>
+      <?php if (count($errors) > 0): ?>
+        <div class = "panel panel-danger">
+          <div class = "panel-heading">
+            <span>Corrija os erros abaixo </span>
+          </div>
+          <div class ="panel-body">
+            <ul class = "list-group">
+
+              <?php foreach($errors as $key => $value): ?>
+                <li class= "list-group-item">
+                  <?= $value ?>
+                </li>
+              <?php endforeach ?>
+
             </ul>
-            <div class="center">
-              <a href="index.php">Voltar para a home</a>
-            </div>
+          <div class="center">
+            <a href= "index.php"> Voltar para a Home </a>
+          </div>
           </div>
         </div>
+      <?php else: ?>
+            <div class="panel panel-primary">
+              <div class="panel-heading">Compra Realizada com sucesso!</div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item"><strong>Nome Curso:</strong><?php echo $nomeCurso; ?></li>
+                  <li class="list-group-item"><strong>Preço: R$</strong><?php echo $precoCurso; ?></li>
+                  <li class="list-group-item"><strong>Nome Completo:</strong><?php echo $nomeCompleto; ?></li>
+                </ul>
+                <div class="center">
+                  <a href="index.php">Voltar para a home</a>
+                </div>
+              </div>
+            </div>
+      <?php endif; ?>
       </div>
     </div>
   </body>
