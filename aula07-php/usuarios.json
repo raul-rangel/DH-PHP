@@ -1,0 +1,16 @@
+{
+    "usuarios": [
+        {
+            "nome": "asdasd",
+            "email": "asd@gmail.com",
+            "senha": "$2y$10$mH38cnBG1rrwNKT7geeK1OtAvAHHci5Fb75hqOemcSFu8xpa1mfRW",
+            "foto": "assets/img/uploads/left.jpg"
+        },
+        {
+            "nome": "asda",
+            "email": "asd@gmail.com",
+            "senha": "$2y$10$kJfSVtiUfvCKFxJIR0RzU.Q/uFW10RcYp7wJIo3oEabZVeP2i1uzi",
+            "foto": "assets/img/uploads/book_black.png"
+        }
+    ]
+}
