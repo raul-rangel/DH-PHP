@@ -1,0 +1,11 @@
+{
+  "usuarios": [
+    {
+      "nome": "teste",
+      "email": "teste@teste",
+      "senha": "$2y$10$l.08iuxrZ6.KdBs8EywhCO/TdJukcz10JalY6i5hDMec7tRyRWsq.",
+      "imagem": "assets/img/uploads/logo.png",
+      "nivelAcesso": 1
+    }
+  ]
+}
